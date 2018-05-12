@@ -1,11 +1,8 @@
 package gw.linker.entity;
 
-import gw.linker.Project;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "element_in_project")
 public class ElementInProject {
 
     @Id

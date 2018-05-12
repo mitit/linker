@@ -1,23 +1,29 @@
 package gw.linker;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 public abstract class Main extends Application {
 
+    private static String[] savedArgs;
+
+    protected ConfigurableApplicationContext context;
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
+    public void init() {
+        context = SpringApplication.run(getClass(), savedArgs);
+        context.getAutowireCapableBeanFactory().autowireBean(this);
     }
 
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        context.close();
+    }
 
-    public static void main(String[] args) {
-        launch(args);
+    protected static void launchApp(Class<? extends Main> appClass, String[] args) {
+        Main.savedArgs = args;
+        Application.launch(appClass, args);
     }
 }

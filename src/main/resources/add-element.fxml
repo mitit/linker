@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="gw.linker.controller.ThirdController"
+            prefHeight="400.0" prefWidth="600.0">
+    <HBox alignment="CENTER" layoutX="21.0" layoutY="207.0" prefHeight="50.0" prefWidth="300.0"
+          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+        <children>
+            <TextField fx:id="txtNrInProject" promptText="Номер в проекте">
+                <HBox.margin>
+                    <Insets right="3.0"/>
+                </HBox.margin>
+            </TextField>
+            <TextField fx:id="txtLength" promptText="длина">
+                <HBox.margin>
+                    <Insets right="3.0"/>
+                </HBox.margin>
+            </TextField>
+            <TextField fx:id="txtWidth" promptText="ширина">
+                <HBox.margin>
+                    <Insets right="3.0"/>
+                </HBox.margin>
+            </TextField>
+            <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#saveElement" text="Добавить"/>
+        </children>
+    </HBox>
+</AnchorPane>

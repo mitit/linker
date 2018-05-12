@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gw.linker.controller.MainController">
+    <children>
+        <VBox prefHeight="300.0" prefWidth="405.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="Файл">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#showAllElements" text="Открыть проект"/>
+                                <MenuItem mnemonicParsing="false" onAction="#addElement" text="Создать проект"/>
+                                <MenuItem mnemonicParsing="false" text="Сохранить проект"/>
+                                <MenuItem mnemonicParsing="false" text="Закрыть программу"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Компоновка">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Начать компоновку"/>
+                                <MenuItem mnemonicParsing="false" text="Задать пар-ры алгоритма"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Справка">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Описание программы"/>
+                                <MenuItem mnemonicParsing="false" text="Рук-во пользователя"/>
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <!--<TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="405.0" tableMenuButtonVisible="true">-->
+                <!--<columnResizePolicy>-->
+                <!--<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />-->
+                <!--</columnResizePolicy>-->
+                <!--</TableView>-->
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" stroke="BLACK" strokeType="INSIDE"
+                           width="300.0">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="150.0" right="150.0" top="10.0"/>
+                    </VBox.margin>
+                </Rectangle>
+                <!--<HBox alignment="CENTER" layoutX="21.0" layoutY="207.0" prefHeight="50.0" prefWidth="300.0"-->
+                      <!--AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">-->
+                    <!--<children>-->
+                        <!--<TextField fx:id="txtNrInProject" promptText="Номер в проекте">-->
+                            <!--<HBox.margin>-->
+                                <!--<Insets right="3.0"/>-->
+                            <!--</HBox.margin>-->
+                        <!--</TextField>-->
+                        <!--<TextField fx:id="txtLength" promptText="длина">-->
+                            <!--<HBox.margin>-->
+                                <!--<Insets right="3.0"/>-->
+                            <!--</HBox.margin>-->
+                        <!--</TextField>-->
+                        <!--<TextField fx:id="txtWidth" promptText="ширина">-->
+                            <!--<HBox.margin>-->
+                                <!--<Insets right="3.0"/>-->
+                            <!--</HBox.margin>-->
+                        <!--</TextField>-->
+                        <!--<Button minWidth="-Infinity" mnemonicParsing="false" onAction="#saveElement" text="Добавить"/>-->
+                    <!--</children>-->
+                <!--</HBox>-->
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
