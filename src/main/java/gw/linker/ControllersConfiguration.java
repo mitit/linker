@@ -1,8 +1,8 @@
 package gw.linker;
 
+import gw.linker.controller.AddElementController;
+import gw.linker.controller.AllElementsController;
 import gw.linker.controller.MainController;
-import gw.linker.controller.SecondController;
-import gw.linker.controller.ThirdController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.springframework.context.annotation.Bean;
@@ -16,17 +16,17 @@ public class ControllersConfiguration {
 
     @Bean(name = "mainView")
     public ViewHolder getMainView() throws IOException {
-        return loadView("main.fxml");
+        return loadView("ui/main.fxml");
     }
 
     @Bean(name = "elements")
     public ViewHolder getElementsView() throws IOException {
-        return loadView("elements.fxml");
+        return loadView("ui/all-elements.fxml");
     }
 
     @Bean(name = "add-element")
     public ViewHolder getAddElementView() throws IOException {
-        return loadView("add-element.fxml");
+        return loadView("ui/add-element.fxml");
     }
 
     @Bean
@@ -35,13 +35,13 @@ public class ControllersConfiguration {
     }
 
     @Bean
-    public SecondController getSecondController() throws IOException {
-        return (SecondController) getElementsView().getController();
+    public AllElementsController getSecondController() throws IOException {
+        return (AllElementsController) getElementsView().getController();
     }
 
     @Bean
-    public ThirdController getThirdController() throws IOException {
-        return (ThirdController) getAddElementView().getController();
+    public AddElementController getThirdController() throws IOException {
+        return (AddElementController) getAddElementView().getController();
     }
 
     protected ViewHolder loadView(String url) throws IOException {

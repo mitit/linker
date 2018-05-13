@@ -1,15 +1,15 @@
 package gw.linker.controller;
 
-import gw.linker.entity.ElementInProject;
-import gw.linker.service.ElementInProjectService;
+import gw.linker.entity.Element;
+import gw.linker.service.ElementService;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class ThirdController {
+public class AddElementController {
 
     @Autowired
-    private ElementInProjectService elementInProjectService;
+    private ElementService elementService;
 
     @FXML
     private TextField txtNrInProject;
@@ -34,10 +34,10 @@ public class ThirdController {
         Double length = Double.parseDouble(txtLength.getText());
         Double width = Double.parseDouble(txtWidth.getText());
 
-        ElementInProject elementInProject = new ElementInProject();
-        elementInProject.setNumberInProject(nrInProject);
-        elementInProject.setLength(length);
-        elementInProject.setWidth(width);
-        elementInProjectService.save(elementInProject);
+        Element element = new Element();
+        element.setNumberInProject(nrInProject);
+        element.setLength(length);
+        element.setWidth(width);
+        elementService.save(element);
     }
 }

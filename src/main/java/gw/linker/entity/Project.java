@@ -13,7 +13,7 @@ public class Project {
     @Column
     private int number;
     @OneToMany
-    private List<ElementInProject> elementInProjectList;
+    private List<Element> elements;
 
     public int getNumber() {
         return number;
@@ -23,11 +23,11 @@ public class Project {
         this.number = number;
     }
 
-    public List<ElementInProject> getElementInProjectList() {
-        return elementInProjectList;
+    public List<Element> getElements() {
+        return elements;
     }
 
-    public void setElementInProjectList(List<ElementInProject> elementInProjectList) {
-        this.elementInProjectList = elementInProjectList;
+    public void setElements(List<Element> elements) {
+        this.elements = elements;
     }
 }
