@@ -1,11 +1,11 @@
 package gw.linker.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+
+
+import javax.persistence.*;
 
 @Entity
+@Table(name = "element_in_project")
 public class Element {
 
     @Id

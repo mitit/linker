@@ -1,8 +1,6 @@
 package gw.linker;
 
-import gw.linker.controller.AddElementController;
-import gw.linker.controller.AllElementsController;
-import gw.linker.controller.MainController;
+import gw.linker.controller.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +11,8 @@ import java.io.InputStream;
 
 @Configuration
 public class ControllersConfiguration {
+
+    private AppRef ref = new AppRef();
 
     @Bean(name = "mainView")
     public ViewHolder getMainView() throws IOException {
@@ -44,17 +44,26 @@ public class ControllersConfiguration {
         return (AddElementController) getAddElementView().getController();
     }
 
+    public void setApplication(LinkerApplication app) {
+        ref.app = app;
+    }
+
     protected ViewHolder loadView(String url) throws IOException {
-        InputStream fxmlStream = null;
-        try {
-            fxmlStream = getClass().getClassLoader().getResourceAsStream(url);
+        try (InputStream fxmlStream = getClass().getClassLoader().getResourceAsStream(url)) {
             FXMLLoader loader = new FXMLLoader();
             loader.load(fxmlStream);
-            return new ViewHolder(loader.getRoot(), loader.getController());
-        } finally {
-            if (fxmlStream != null) {
-                fxmlStream.close();
-            }
+            BaseController controller = loader.getController();
+            controller.setStageController(ref);
+            return new ViewHolder(loader.getRoot(), controller);
+        }
+    }
+
+    public class AppRef implements StageController {
+        private LinkerApplication app;
+
+        @Override
+        public void setScene(SceneName scene) {
+            app.setScene(scene);
         }
     }
 

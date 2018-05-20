@@ -16,13 +16,6 @@ public class Project {
     @OneToMany
     private List<Element> elements;
 
-    private LocalDateTime beginDate;
-    private LocalDateTime endTime;
-    private String executor;
-    private List<List<Integer>> adjacencyMatrix;
-    private List<List<Integer>> emcMatrix;
-    private String result;
-
     public int getNumber() {
         return number;
     }

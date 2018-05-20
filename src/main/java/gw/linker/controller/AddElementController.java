@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class AddElementController {
+public class AddElementController extends BaseController {
 
     @Autowired
     private ElementService elementService;
@@ -39,5 +39,10 @@ public class AddElementController {
         element.setLength(length);
         element.setWidth(width);
         elementService.save(element);
+    }
+
+    @FXML
+    public void close() {
+        stageController.setScene(SceneName.MAIN);
     }
 }

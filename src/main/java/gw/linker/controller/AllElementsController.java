@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
-public class AllElementsController {
+public class AllElementsController extends BaseController {
 
     @Autowired
     private ElementService elementService;
@@ -51,5 +51,10 @@ public class AllElementsController {
 
         table.getColumns().setAll(nrColumn, pcbNrColumn, labelColumn, lengthColumn, widthColumn, typeColumn);
         table.setItems(data);
+    }
+
+    @FXML
+    public void close() {
+        stageController.setScene(SceneName.MAIN);
     }
 }

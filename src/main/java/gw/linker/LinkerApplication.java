@@ -1,8 +1,11 @@
 package gw.linker;
 
+import gw.linker.controller.SceneName;
+import gw.linker.controller.StageController;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +14,7 @@ import org.springframework.context.annotation.Lazy;
 
 @Lazy
 @SpringBootApplication
-public class LinkerApplication extends Main {
+public class LinkerApplication extends Main implements StageController {
 
     @Value("${ui.title:JavaFX приложение}")//
     private String windowTitle;
@@ -28,36 +31,71 @@ public class LinkerApplication extends Main {
     @Autowired
     private ControllersConfiguration.ViewHolder addElementView;
 
-    @Override
-    public void start(Stage stage) {
-        stage.setTitle(windowTitle);
-        stage.setScene(new Scene(view.getView()));
-        stage.setResizable(true);
-        stage.centerOnScreen();
-        stage.show();
-    }
+    @Autowired
+    private ControllersConfiguration controllersConfiguration;
 
-    public void showAllElements() {
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Edit Person");
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.setScene(new Scene(elementsView.getView()));
+    @Getter
+    private Stage stage;
 
-        dialogStage.showAndWait();
-    }
-
-    public void addElement() {
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Add Person");
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.setScene(new Scene(addElementView.getView()));
-
-        dialogStage.showAndWait();
-    }
-
+    private Scene mainScene;
+    private Scene newProjectScene;
+    private Scene openProjectScene;
 
     public static void main(String[] args) {
         launchApp(LinkerApplication.class, args);
     }
 
+
+    @Override
+    public void start(Stage stage) {
+        setStage(stage);
+        controllersConfiguration.setApplication(this);
+
+        stage.setTitle(windowTitle);
+        mainScene = new Scene(view.getView());
+        stage.setScene(mainScene);
+        stage.setResizable(true);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    @Override
+    public void setScene(SceneName name) {
+        try {
+            switch (name) {
+                case MAIN:
+                    if (mainScene == null) {
+                        mainScene = new Scene(view.getView());
+                    }
+                    stage.setScene(mainScene);
+                    stage.centerOnScreen();
+                    break;
+
+                case NEW_PROJECT:
+                    if (newProjectScene == null) {
+                        newProjectScene = new Scene(addElementView.getView());
+                    }
+                    stage.setScene(newProjectScene);
+                    stage.centerOnScreen();
+                    break;
+
+                case OPEN_PROJECT:
+                    if (openProjectScene == null) {
+                        openProjectScene = new Scene(elementsView.getView());
+                    }
+                    stage.setScene(openProjectScene);
+                    stage.centerOnScreen();
+                    break;
+
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

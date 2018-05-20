@@ -4,10 +4,11 @@ import gw.linker.LinkerApplication;
 import javafx.fxml.FXML;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class MainController {
+public class MainController extends BaseController {
 
     @Autowired
     LinkerApplication linkerApplication;
+
 
     @FXML
     public void initialize() {
@@ -15,11 +16,11 @@ public class MainController {
 
     @FXML
     public void showAllElements() {
-        linkerApplication.showAllElements();
+        stageController.setScene(SceneName.OPEN_PROJECT);
     }
 
     @FXML
     public void addElement() {
-        linkerApplication.addElement();
+        stageController.setScene(SceneName.NEW_PROJECT);
     }
 }
