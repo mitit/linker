@@ -1,34 +1,34 @@
 package gw.linker.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.time.LocalDateTime;
+import lombok.*;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
+@EqualsAndHashCode
 public class Project {
 
     @Id
     @Column
-    private int number;
-    @OneToMany
-    private List<Element> elements;
+    private String name;
 
-    public int getNumber() {
-        return number;
-    }
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.ALL})
+    @JoinTable(name = "pcb_in_project",
+            joinColumns = {@JoinColumn(name = "project_name")},
+            inverseJoinColumns = {@JoinColumn(name = "pcb_id")})
+    private List<Pcb> pcbList;
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public List<Element> getElements() {
-        return elements;
-    }
-
-    public void setElements(List<Element> elements) {
-        this.elements = elements;
-    }
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.ALL})
+    @JoinTable(name = "element_in_project",
+            joinColumns = {@JoinColumn(name = "project_name")},
+            inverseJoinColumns = {@JoinColumn(name = "element_id")})
+    private List<Element> elementList;
 }

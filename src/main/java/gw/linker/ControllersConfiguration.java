@@ -21,12 +21,12 @@ public class ControllersConfiguration {
 
     @Bean(name = "elements")
     public ViewHolder getElementsView() throws IOException {
-        return loadView("ui/all-elements.fxml");
+        return loadView("ui/all-projects.fxml");
     }
 
     @Bean(name = "add-element")
     public ViewHolder getAddElementView() throws IOException {
-        return loadView("ui/add-element.fxml");
+        return loadView("ui/add-project.fxml");
     }
 
     @Bean
@@ -35,13 +35,13 @@ public class ControllersConfiguration {
     }
 
     @Bean
-    public AllElementsController getSecondController() throws IOException {
-        return (AllElementsController) getElementsView().getController();
+    public AllProjectsController getSecondController() throws IOException {
+        return (AllProjectsController) getElementsView().getController();
     }
 
     @Bean
-    public AddElementController getThirdController() throws IOException {
-        return (AddElementController) getAddElementView().getController();
+    public AddProjectController getThirdController() throws IOException {
+        return (AddProjectController) getAddElementView().getController();
     }
 
     public void setApplication(LinkerApplication app) {

@@ -2,16 +2,29 @@ package gw.linker.entity;
 
 import lombok.*;
 
-@Setter
+import javax.persistence.*;
+import java.util.List;
+
 @Getter
-@NoArgsConstructor
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
+@Entity
 @EqualsAndHashCode
 public class Pcb {
-    private long number;
-    private Project project;
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @Column
     private String label;
+    @Column
     private double width;
+    @Column
     private double length;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.ALL},
+            mappedBy = "pcbList")
+    private List<Project> projectList;
 }

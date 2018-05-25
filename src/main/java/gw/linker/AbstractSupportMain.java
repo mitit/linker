@@ -4,7 +4,7 @@ import javafx.application.Application;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-public abstract class Main extends Application {
+public abstract class AbstractSupportMain extends Application {
 
     private static String[] savedArgs;
 
@@ -22,8 +22,8 @@ public abstract class Main extends Application {
         context.close();
     }
 
-    protected static void launchApp(Class<? extends Main> appClass, String[] args) {
-        Main.savedArgs = args;
+    protected static void launchApp(Class<? extends AbstractSupportMain> appClass, String[] args) {
+        AbstractSupportMain.savedArgs = args;
         Application.launch(appClass, args);
     }
 }

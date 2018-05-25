@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
+<?import javafx.scene.shape.Rectangle?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0"
             prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="gw.linker.controller.MainController">
@@ -38,38 +35,12 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-                <!--<TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="405.0" tableMenuButtonVisible="true">-->
-                <!--<columnResizePolicy>-->
-                <!--<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />-->
-                <!--</columnResizePolicy>-->
-                <!--</TableView>-->
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" stroke="BLACK" strokeType="INSIDE"
                            width="300.0">
                     <VBox.margin>
                         <Insets bottom="10.0" left="150.0" right="150.0" top="10.0"/>
                     </VBox.margin>
                 </Rectangle>
-                <!--<HBox alignment="CENTER" layoutX="21.0" layoutY="207.0" prefHeight="50.0" prefWidth="300.0"-->
-                      <!--AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">-->
-                    <!--<children>-->
-                        <!--<TextField fx:id="txtNrInProject" promptText="Номер в проекте">-->
-                            <!--<HBox.margin>-->
-                                <!--<Insets right="3.0"/>-->
-                            <!--</HBox.margin>-->
-                        <!--</TextField>-->
-                        <!--<TextField fx:id="txtLength" promptText="длина">-->
-                            <!--<HBox.margin>-->
-                                <!--<Insets right="3.0"/>-->
-                            <!--</HBox.margin>-->
-                        <!--</TextField>-->
-                        <!--<TextField fx:id="txtWidth" promptText="ширина">-->
-                            <!--<HBox.margin>-->
-                                <!--<Insets right="3.0"/>-->
-                            <!--</HBox.margin>-->
-                        <!--</TextField>-->
-                        <!--<Button minWidth="-Infinity" mnemonicParsing="false" onAction="#saveElement" text="Добавить"/>-->
-                    <!--</children>-->
-                <!--</HBox>-->
             </children>
         </VBox>
     </children>

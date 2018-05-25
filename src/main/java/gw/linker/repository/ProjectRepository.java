@@ -1,9 +1,9 @@
 package gw.linker.repository;
 
-import gw.linker.entity.Element;
+import gw.linker.entity.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ElementRepository extends JpaRepository<Element, Long> {
+public interface ProjectRepository extends JpaRepository<Project, Long> {
 }

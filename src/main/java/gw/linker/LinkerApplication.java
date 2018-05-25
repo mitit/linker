@@ -3,7 +3,6 @@ package gw.linker;
 import gw.linker.controller.SceneName;
 import gw.linker.controller.StageController;
 import javafx.scene.Scene;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import org.springframework.context.annotation.Lazy;
 
 @Lazy
 @SpringBootApplication
-public class LinkerApplication extends Main implements StageController {
+public class LinkerApplication extends AbstractSupportMain implements StageController {
 
     @Value("${ui.title:JavaFX приложение}")//
     private String windowTitle;
