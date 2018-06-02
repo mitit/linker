@@ -10,7 +10,7 @@ public class MainController extends BaseController {
 
     @FXML
     public void showAllElements() {
-        stageController.setScene(SceneName.OPEN_PROJECT);
+        stageController.setScene(SceneName.ALL_PROJECTS);
     }
 
     @FXML

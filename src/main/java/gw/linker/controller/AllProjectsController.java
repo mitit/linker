@@ -16,9 +16,9 @@ public class AllProjectsController extends BaseController {
 
     @Autowired
     private ProjectService projectService;
+
     @FXML
     private TableView<Project> projectTableView;
-
     @FXML
     public void initialize() {
     }

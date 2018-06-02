@@ -1,5 +1,6 @@
 package gw.linker;
 
+import gw.linker.configuration.ControllersConfiguration;
 import gw.linker.controller.SceneName;
 import gw.linker.controller.StageController;
 import javafx.scene.Scene;
@@ -22,11 +23,11 @@ public class LinkerApplication extends AbstractSupportMain implements StageContr
     @Autowired
     private ControllersConfiguration.ViewHolder view;
 
-    @Qualifier("elements")
+    @Qualifier("all-projects")
     @Autowired
     private ControllersConfiguration.ViewHolder elementsView;
 
-    @Qualifier("add-element")
+    @Qualifier("add-project")
     @Autowired
     private ControllersConfiguration.ViewHolder addElementView;
 
@@ -82,7 +83,7 @@ public class LinkerApplication extends AbstractSupportMain implements StageContr
                     stage.centerOnScreen();
                     break;
 
-                case OPEN_PROJECT:
+                case ALL_PROJECTS:
                     if (openProjectScene == null) {
                         openProjectScene = new Scene(elementsView.getView());
                     }

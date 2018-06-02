@@ -1,8 +1,12 @@
-package gw.linker;
+package gw.linker.configuration;
 
+import gw.linker.LinkerApplication;
 import gw.linker.controller.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,29 +23,29 @@ public class ControllersConfiguration {
         return loadView("ui/main.fxml");
     }
 
-    @Bean(name = "elements")
-    public ViewHolder getElementsView() throws IOException {
+    @Bean(name = "all-projects")
+    public ViewHolder getAllProjectsView() throws IOException {
         return loadView("ui/all-projects.fxml");
     }
 
-    @Bean(name = "add-element")
-    public ViewHolder getAddElementView() throws IOException {
+    @Bean(name = "add-project")
+    public ViewHolder getAddProjectView() throws IOException {
         return loadView("ui/add-project.fxml");
     }
 
     @Bean
-    public MainController getMainController() throws IOException {
+    public MainController getMainViewController() throws IOException {
         return (MainController) getMainView().getController();
     }
 
     @Bean
-    public AllProjectsController getSecondController() throws IOException {
-        return (AllProjectsController) getElementsView().getController();
+    public AllProjectsController getAllProjectsViewController() throws IOException {
+        return (AllProjectsController) getAllProjectsView().getController();
     }
 
     @Bean
-    public AddProjectController getThirdController() throws IOException {
-        return (AddProjectController) getAddElementView().getController();
+    public AddProjectController getAddProjectViewController() throws IOException {
+        return (AddProjectController) getAddProjectView().getController();
     }
 
     public void setApplication(LinkerApplication app) {
@@ -67,30 +71,12 @@ public class ControllersConfiguration {
         }
     }
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
     public class ViewHolder {
         private Parent view;
         private Object controller;
-
-        public ViewHolder(Parent view, Object controller) {
-            this.view = view;
-            this.controller = controller;
-        }
-
-        public Parent getView() {
-            return view;
-        }
-
-        public void setView(Parent view) {
-            this.view = view;
-        }
-
-        public Object getController() {
-            return controller;
-        }
-
-        public void setController(Object controller) {
-            this.controller = controller;
-        }
     }
 
 }
