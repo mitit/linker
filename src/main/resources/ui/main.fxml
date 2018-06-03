@@ -1,46 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="gw.linker.controller.MainController">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gw.linker.controller.MainController">
     <children>
-        <VBox prefHeight="300.0" prefWidth="405.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox prefHeight="300.0" prefWidth="405.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <MenuBar>
                     <menus>
                         <Menu mnemonicParsing="false" text="Файл">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#showAllElements" text="Открыть проект"/>
-                                <MenuItem mnemonicParsing="false" onAction="#addElement" text="Создать проект"/>
-                                <MenuItem mnemonicParsing="false" text="Сохранить проект"/>
-                                <MenuItem mnemonicParsing="false" text="Закрыть программу"/>
+                                <MenuItem mnemonicParsing="false" onAction="#showAllElements" text="Открыть проект" />
+                                <MenuItem mnemonicParsing="false" onAction="#addElement" text="Создать проект" />
+                                <MenuItem mnemonicParsing="false" text="Сохранить проект" />
+                                <MenuItem mnemonicParsing="false" text="Закрыть программу" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Компоновка">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Начать компоновку"/>
-                                <MenuItem mnemonicParsing="false" text="Задать пар-ры алгоритма"/>
+                                <MenuItem mnemonicParsing="false" text="Начать компоновку" />
+                                <MenuItem mnemonicParsing="false" text="Задать пар-ры алгоритма" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Справка">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Описание программы"/>
-                                <MenuItem mnemonicParsing="false" text="Рук-во пользователя"/>
+                                <MenuItem mnemonicParsing="false" text="Описание программы" />
+                                <MenuItem mnemonicParsing="false" text="Рук-во пользователя" />
                             </items>
                         </Menu>
                     </menus>
                 </MenuBar>
-                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" stroke="BLACK" strokeType="INSIDE"
-                           width="300.0">
-                    <VBox.margin>
-                        <Insets bottom="10.0" left="150.0" right="150.0" top="10.0"/>
-                    </VBox.margin>
-                </Rectangle>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Label text="Проект:">
+                     <HBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="projectName" text="Не выбран">
+                     <HBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label text="Информация о проекте:">
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="projectInfo" text="Отсутствует">
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <Group />
             </children>
         </VBox>
     </children>

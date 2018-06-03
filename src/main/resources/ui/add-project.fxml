@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="gw.linker.controller.AddProjectController">
+
+<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gw.linker.controller.AddProjectController">
     <children>
-        <HBox alignment="CENTER" layoutX="21.0" layoutY="207.0" prefHeight="50.0" prefWidth="300.0"
-              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-            <children>
-                <TextField fx:id="txtNrInProject" promptText="Номер в проекте">
-                    <HBox.margin>
-                        <Insets right="3.0"/>
-                    </HBox.margin>
+      <VBox prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+                <TextField fx:id="txtNrInProject" promptText="Название проекта">
+               <VBox.margin>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+               </VBox.margin>
                 </TextField>
-                <TextField fx:id="projectName" promptText="длина">
-                    <HBox.margin>
-                        <Insets right="3.0"/>
-                    </HBox.margin>
-                </TextField>
-                <TextField fx:id="txtWidth" promptText="ширина">
-                    <HBox.margin>
-                        <Insets right="3.0"/>
-                    </HBox.margin>
-                </TextField>
-                <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#saveProject" text="Добавить"/>
-                <Button mnemonicParsing="false" onAction="#close" text="Cancel"/>
-            </children>
-        </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#close" text="Назад">
+                     <HBox.margin>
+                        <Insets left="50.0" top="230.0" />
+                     </HBox.margin>
+                  </Button>
+                      <Button mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#saveProject" text="Добавить">
+                     <HBox.margin>
+                        <Insets left="563.0" top="230.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
     </children>
 </AnchorPane>

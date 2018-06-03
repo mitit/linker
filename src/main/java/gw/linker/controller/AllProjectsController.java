@@ -1,6 +1,7 @@
 package gw.linker.controller;
 
 import gw.linker.entity.Project;
+import gw.linker.exception.ProjectNotFoundException;
 import gw.linker.service.ProjectService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -16,26 +17,46 @@ public class AllProjectsController extends BaseController {
 
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private MainController mainController;
 
     @FXML
     private TableView<Project> projectTableView;
+
+    private List<Project> projects;
+
     @FXML
     public void initialize() {
     }
 
     @PostConstruct
     public void init() {
-        List<Project> list = projectService.findAll();
+        projects = projectService.findAll();
 
-        TableColumn<Project, String> nrColumn = new TableColumn<>("name");
-        nrColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TableColumn<Project, String> nameColumn = new TableColumn<>("Название");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        projectTableView.getColumns().setAll(nrColumn);
-        projectTableView.setItems(FXCollections.observableArrayList(list));
+        projectTableView.getColumns().setAll(nameColumn);
+        projectTableView.setItems(FXCollections.observableArrayList(projects));
     }
 
     @FXML
     public void close() {
         stageController.setScene(SceneName.MAIN);
+    }
+
+    @FXML
+    public void updateProjectList() {
+        projects = projectService.findAll();
+        projectTableView.setItems(FXCollections.observableArrayList(projects));
+    }
+
+    @FXML
+    public void selectProject() {
+        String projectName = projectTableView.getSelectionModel().getSelectedItem().getName();
+        Project project = projectService.find(projectName).orElseThrow(ProjectNotFoundException::new);
+        projectService.setCurrentProject(project);
+        mainController.openProject();
+        close();
     }
 }
