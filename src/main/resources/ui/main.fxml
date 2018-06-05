@@ -25,7 +25,7 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="Компоновка">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Начать компоновку" />
+                                <MenuItem mnemonicParsing="false" onAction="#startWork" text="Начать компоновку" />
                                 <MenuItem mnemonicParsing="false" text="Задать пар-ры алгоритма" />
                             </items>
                         </Menu>
@@ -67,7 +67,7 @@
                   </Label>
                </children>
             </HBox>
-            <Group />
+            <Group fx:id="group" />
             </children>
         </VBox>
     </children>
