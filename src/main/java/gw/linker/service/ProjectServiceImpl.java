@@ -86,6 +86,8 @@ public class ProjectServiceImpl implements ProjectService {
         int currentX = 0;
         int currentY = 0;
         int lastY = 0;
+        int pcbPosition = 0;
+
         int nextX = 0;
         int nextY = 0;
         int lastX = 0;
@@ -95,7 +97,7 @@ public class ProjectServiceImpl implements ProjectService {
             Element element = sortedElements.get(i);
             Long[][] pcbMatrix = pcbMatrices.get(currentPcbMatrix);
 
-            if (element.getWidth()  <=  pcbMatrix.length - currentX) {
+            if (element.getWidth() <= pcbMatrix.length - currentX) {
 
                 if (element.getLength() <= pcbMatrix[0].length - currentY) {
 
@@ -104,7 +106,8 @@ public class ProjectServiceImpl implements ProjectService {
                             pcbMatrix[m][n] = (long) i;
                         }
 
-                    elementsStartPoints.put(element, currentX + ";" + currentY);
+                    int tmpX = currentX * 10 + pcbPosition;
+                    elementsStartPoints.put(element, tmpX + ";" + currentY);
                     elementsInPcbs.get(currentPcbMatrix).add(element);
 
                     currentX = (int) element.getWidth() + currentX;
@@ -120,6 +123,7 @@ public class ProjectServiceImpl implements ProjectService {
                         currentX = 0;
                         currentY = 0;
                         lastY = 0;
+                        pcbPosition += pcbMatrix.length * 10 + 20;
                     } else {
                         break;
                     }
@@ -134,10 +138,11 @@ public class ProjectServiceImpl implements ProjectService {
                             pcbMatrix[m][n] = (long) i;
                         }
                 }
-                elementsStartPoints.put(element, currentX + ";" + currentY);
+                int tmpX = currentX * 10 + pcbPosition;
+                elementsStartPoints.put(element, tmpX + ";" + currentY);
                 elementsInPcbs.get(currentPcbMatrix).add(element);
 
-                currentX = (int) element.getWidth()  + currentX;
+                currentX = (int) element.getWidth() + currentX;
                 if (lastY < currentY + element.getLength())
                     lastY = currentY + (int) element.getLength();
 
@@ -151,12 +156,12 @@ public class ProjectServiceImpl implements ProjectService {
 //                currentY = 0;
 
 
-
             } else {
 
                 if (currentPcbMatrix < pcbMatrices.size() - 1) {
                     currentPcbMatrix++;
                     i--;
+                    pcbPosition += pcbMatrix.length * 10 + 20;
                     currentX = 0;
                     currentY = 0;
                     lastY = 0;

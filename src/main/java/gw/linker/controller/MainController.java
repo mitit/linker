@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -76,7 +77,7 @@ public class MainController extends BaseController {
             for (int j = 0; j < elementList.size(); j++) {
                 Element element = elementList.get(j);
                 String point = elementsStartPoints.get(element);
-                Double xPosition = pcbPosition + (Double.parseDouble(point.split(";")[0]) * 10);
+                Double xPosition = Double.parseDouble(point.split(";")[0]);
                 Double yPosition = 50 + (Double.parseDouble(point.split(";")[1]) * 10);
 
                 double elementLength = element.getLength() * 10;
@@ -87,7 +88,11 @@ public class MainController extends BaseController {
                 rectangle.setFill(null);
                 rectangle.setStrokeWidth(1);
 
-                group.getChildren().addAll(rectangle);
+                Text elText = new Text(element.getLabel());
+                elText.setX(xPosition + 10);
+                elText.setY(yPosition + 10);
+
+                group.getChildren().addAll(rectangle, elText);
 
 //                if (j < elementList.size() - 1) {
 //                    Element nextElement = elementList.get(j + 1);
@@ -125,18 +130,33 @@ public class MainController extends BaseController {
                             String startPoint = elementsStartPoints.get(startElement);
                             String endPoint = elementsStartPoints.get(endElement);
 
-                            Double startX = Double.parseDouble(startPoint.split(";")[0]) * 10;
-                            Double startY = Double.parseDouble(startPoint.split(";")[1]) * 10;
+                            Double startX = Double.parseDouble(startPoint.split(";")[0]) + startElement.getWidth() * 10 / 2;
+                            Double startY = 50 + Double.parseDouble(startPoint.split(";")[1]) * 10 + startElement.getLength() * 10 / 2;
 
-                            Double endX = Double.parseDouble(endPoint.split(";")[0]) * 10;
-                            Double endY = Double.parseDouble(endPoint.split(";")[1]) * 10;
+                            Double endX = Double.parseDouble(endPoint.split(";")[0]) + endElement.getWidth() * 10 / 2;
+                            Double endY = 50 + Double.parseDouble(endPoint.split(";")[1]) * 10 + endElement.getLength() * 10 / 2;
 
-                            System.out.println(startX + ";" + startY + "=" + endX + ";" + endY);
+                            Line line = new Line(startX, startY, endX, endY);
+                            line.setStroke(Color.RED);
 
+                            Text text = new Text("1");
+                            if (startX > endX)
+                                text.setX((startX + endX) / 2);
+                            else
+                                text.setX((endX + startX) / 2);
+
+                            if (startY > endY)
+                                text.setY((startY + endY) / 2);
+                            else
+                                text.setY((endY + startY) / 2);
+
+
+                            group.getChildren().addAll(line, text);
                         }
                     });
                 });
-                System.out.println("koeff=" + koeff);
+
+
 
             }
 
