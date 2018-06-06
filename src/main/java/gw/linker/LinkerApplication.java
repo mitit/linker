@@ -25,11 +25,11 @@ public class LinkerApplication extends AbstractSupportMain implements StageContr
 
     @Qualifier("all-projects")
     @Autowired
-    private ControllersConfiguration.ViewHolder elementsView;
+    private ControllersConfiguration.ViewHolder allProjectsView;
 
     @Qualifier("add-project")
     @Autowired
-    private ControllersConfiguration.ViewHolder addElementView;
+    private ControllersConfiguration.ViewHolder addProjectView;
 
     @Qualifier("edit-algorithm-properties")
     @Autowired
@@ -92,7 +92,7 @@ public class LinkerApplication extends AbstractSupportMain implements StageContr
 
                 case NEW_PROJECT:
                     if (newProjectScene == null) {
-                        newProjectScene = new Scene(addElementView.getView());
+                        newProjectScene = new Scene(addProjectView.getView());
                     }
                     stage.setScene(newProjectScene);
                     stage.centerOnScreen();
@@ -100,7 +100,7 @@ public class LinkerApplication extends AbstractSupportMain implements StageContr
 
                 case ALL_PROJECTS:
                     if (openProjectScene == null) {
-                        openProjectScene = new Scene(elementsView.getView());
+                        openProjectScene = new Scene(allProjectsView.getView());
                     }
                     stage.setScene(openProjectScene);
                     stage.centerOnScreen();

@@ -115,8 +115,6 @@ public class ProjectServiceImpl implements ProjectService {
                     if (lastY < currentY + element.getLength())
                         lastY = currentY + (int) element.getLength();
                 } else {
-                    //TODO: переход на след пп
-
                     if (currentPcbMatrix < pcbMatrices.size() - 1) {
                         currentPcbMatrix++;
                         i--;
@@ -146,16 +144,6 @@ public class ProjectServiceImpl implements ProjectService {
                 if (lastY < currentY + element.getLength())
                     lastY = currentY + (int) element.getLength();
 
-
-//                lastX = currentX;
-//                if (lastX < currentX)
-//                    lastX = currentX;
-
-//                if ((int) element.getLength()  + currentY > nextY)
-//                    nextY = (int) element.getLength()  + currentY;
-//                currentY = 0;
-
-
             } else {
 
                 if (currentPcbMatrix < pcbMatrices.size() - 1) {
@@ -168,21 +156,7 @@ public class ProjectServiceImpl implements ProjectService {
                 } else {
                     break;
                 }
-
             }
-
-
-//            for (Long[] arr :
-//                    pcbMatrix) {
-//                for (Long d :
-//                        arr) {
-//                    if (d != null) System.out.print(d);
-//                    else System.out.print("-");
-//                }
-//                System.out.println();
-//            }
-//
-//            System.out.println();
         }
 
 
@@ -267,7 +241,7 @@ public class ProjectServiceImpl implements ProjectService {
         graph[0][1] = 3;
         graph[0][2] = 1;
         graph[0][3] = 0.01;
-        graph[0][4] = 0.01;
+        graph[0][4] = 1.0;
 
         graph[1][0] = 3;
         graph[1][1] = 0.01;
@@ -288,7 +262,7 @@ public class ProjectServiceImpl implements ProjectService {
         graph[3][4] = 1;
 
         graph[4][0] = 0.01;
-        graph[4][1] = 0.01;
+        graph[4][1] = 1.0;
         graph[4][2] = 2;
         graph[4][3] = 1;
         graph[4][4] = 0.01;

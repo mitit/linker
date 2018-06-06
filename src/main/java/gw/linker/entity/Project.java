@@ -31,4 +31,7 @@ public class Project {
             joinColumns = {@JoinColumn(name = "project_name")},
             inverseJoinColumns = {@JoinColumn(name = "element_id")})
     private List<Element> elementList;
+
+    @OneToOne
+    private LinkSchema linkSchema;
 }

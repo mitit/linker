@@ -1,5 +1,6 @@
 package gw.linker.controller;
 
+import gw.linker.entity.Pcb;
 import gw.linker.entity.Project;
 import gw.linker.exception.ProjectNotFoundException;
 import gw.linker.service.ProjectService;
@@ -11,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AllProjectsController extends BaseController {
@@ -55,8 +57,31 @@ public class AllProjectsController extends BaseController {
     public void selectProject() {
         String projectName = projectTableView.getSelectionModel().getSelectedItem().getName();
         Project project = projectService.find(projectName).orElseThrow(ProjectNotFoundException::new);
+        project.setPcbList(initPcbs());
         projectService.setCurrentProject(project);
         mainController.openProject();
         close();
+    }
+
+    public List<Pcb> initPcbs() {
+        List<Pcb> pcbs = new ArrayList<>();
+
+        pcbs.add(Pcb
+                .builder()
+                .id(0)
+                .label("FIRST")
+                .length(20)
+                .width(10)
+                .build());
+
+        pcbs.add(Pcb
+                .builder()
+                .id(1)
+                .label("SECOND")
+                .length(20)
+                .width(10)
+                .build());
+
+        return pcbs;
     }
 }

@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 public class UserGuideController extends BaseController   {
 
     @FXML
-    public void initialize() {
+    public void init() {
     }
 
     @FXML

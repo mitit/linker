@@ -10,7 +10,7 @@
     <children>
       <VBox prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-                <TextField fx:id="txtNrInProject" promptText="Название проекта">
+                <TextField fx:id="projectName" promptText="Название проекта">
                <VBox.margin>
                   <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
                </VBox.margin>
@@ -20,7 +20,7 @@
                   <Insets bottom="10.0" left="20.0" />
                </VBox.margin>
             </Label>
-            <TableView prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="pcbTableView" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets left="50.0" right="50.0" />
                </VBox.margin>
@@ -30,7 +30,7 @@
                   <Insets bottom="10.0" left="20.0" top="20.0" />
                </VBox.margin>
             </Label>
-            <TableView prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="linkSchemaTableView" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets left="50.0" right="50.0" />
                </VBox.margin>

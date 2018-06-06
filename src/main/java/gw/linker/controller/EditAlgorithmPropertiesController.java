@@ -15,7 +15,7 @@ public class EditAlgorithmPropertiesController extends BaseController  {
     private TextField funcParameter;
 
     @FXML
-    public void initialize() {
+    public void init() {
     }
 
     @FXML

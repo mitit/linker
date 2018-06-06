@@ -14,15 +14,15 @@ import javax.persistence.OneToOne;
 @Builder
 @Entity
 @EqualsAndHashCode
-public class Link {
+public class Emc {
 
     @Id
     @Column
     private Long id;
-
     @OneToOne
     private Element element1;
-
     @OneToOne
     private Element element2;
+    @Column
+    private int value;
 }
