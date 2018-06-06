@@ -33,6 +33,21 @@ public class ControllersConfiguration {
         return loadView("ui/add-project.fxml");
     }
 
+    @Bean(name = "edit-algorithm-properties")
+    public ViewHolder getEditAlgorithmPropertiesView() throws IOException {
+        return loadView("ui/edit-algorithm-properties.fxml");
+    }
+
+    @Bean(name = "program-description")
+    public ViewHolder getProgramDescView() throws IOException {
+        return loadView("ui/program-description.fxml");
+    }
+
+    @Bean(name = "userguide")
+    public ViewHolder getUserGuideView() throws IOException {
+        return loadView("ui/userguide.fxml");
+    }
+
     @Bean
     public MainController getMainViewController() throws IOException {
         return (MainController) getMainView().getController();
@@ -46,6 +61,21 @@ public class ControllersConfiguration {
     @Bean
     public AddProjectController getAddProjectViewController() throws IOException {
         return (AddProjectController) getAddProjectView().getController();
+    }
+
+    @Bean
+    public EditAlgorithmPropertiesController getEditAlgorithmPropertiesController() throws IOException {
+        return (EditAlgorithmPropertiesController) getEditAlgorithmPropertiesView().getController();
+    }
+
+    @Bean
+    public ProgramDescriptionController getProgramDescriptionController() throws IOException {
+        return (ProgramDescriptionController) getProgramDescView().getController();
+    }
+
+    @Bean
+    public UserGuideController getUserGuideController() throws IOException {
+        return (UserGuideController) getUserGuideView().getController();
     }
 
     public void setApplication(LinkerApplication app) {

@@ -31,6 +31,18 @@ public class LinkerApplication extends AbstractSupportMain implements StageContr
     @Autowired
     private ControllersConfiguration.ViewHolder addElementView;
 
+    @Qualifier("edit-algorithm-properties")
+    @Autowired
+    private ControllersConfiguration.ViewHolder editAlgorithmPropertiesView;
+
+    @Qualifier("program-description")
+    @Autowired
+    private ControllersConfiguration.ViewHolder programDescView;
+
+    @Qualifier("userguide")
+    @Autowired
+    private ControllersConfiguration.ViewHolder userguideView;
+
     @Autowired
     private ControllersConfiguration controllersConfiguration;
 
@@ -40,6 +52,9 @@ public class LinkerApplication extends AbstractSupportMain implements StageContr
     private Scene mainScene;
     private Scene newProjectScene;
     private Scene openProjectScene;
+    private Scene editAlgorithmPropertiesScene;
+    private Scene programDescScene;
+    private Scene userguideScene;
 
     public static void main(String[] args) {
         launchApp(LinkerApplication.class, args);
@@ -91,6 +106,29 @@ public class LinkerApplication extends AbstractSupportMain implements StageContr
                     stage.centerOnScreen();
                     break;
 
+                case EDIT_ALGORITHM_PROPERTIES:
+                    if (editAlgorithmPropertiesScene == null) {
+                        editAlgorithmPropertiesScene = new Scene(editAlgorithmPropertiesView.getView());
+                    }
+                    stage.setScene(editAlgorithmPropertiesScene);
+                    stage.centerOnScreen();
+                    break;
+
+                case USERGUIDE:
+                    if (userguideScene == null) {
+                        userguideScene = new Scene(userguideView.getView());
+                    }
+                    stage.setScene(userguideScene);
+                    stage.centerOnScreen();
+                    break;
+
+                case PROGRAM_DESC:
+                    if (programDescScene == null) {
+                        programDescScene = new Scene(programDescView.getView());
+                    }
+                    stage.setScene(programDescScene);
+                    stage.centerOnScreen();
+                    break;
                 default:
                     break;
             }

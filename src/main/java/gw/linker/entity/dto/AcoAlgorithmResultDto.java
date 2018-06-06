@@ -16,4 +16,5 @@ public class AcoAlgorithmResultDto {
 
     private Map<Element, String> elementsStartPoints;
     private List<List<Element>> elementsInPcbs;
+    private double[][] graph;
 }

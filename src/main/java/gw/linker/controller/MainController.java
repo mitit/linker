@@ -59,13 +59,14 @@ public class MainController extends BaseController {
 
         Map<Element, String> elementsStartPoints = acoAlgorithmResultDto.getElementsStartPoints();
         List<List<Element>> elementsInPcbs = acoAlgorithmResultDto.getElementsInPcbs();
+        double[][] graph = acoAlgorithmResultDto.getGraph();
 
         for (int i = 0; i < pcbs.size(); i++) {
             Pcb pcb = pcbs.get(i);
 
             //TODO: перевернуть
-            double pcbWidth = pcb.getLength() * 10;
-            double pcbLength = pcb.getWidth() * 10;
+            double pcbWidth = pcb.getWidth() * 10;
+            double pcbLength = pcb.getLength() * 10;
             Rectangle r = new Rectangle(pcbPosition, 50, pcbWidth, pcbLength);
             r.setStroke(Color.BLACK);
             r.setFill(null);
@@ -81,30 +82,62 @@ public class MainController extends BaseController {
                 double elementLength = element.getLength() * 10;
                 double elementWidth = element.getWidth() * 10;
                 Rectangle rectangle = new Rectangle(xPosition, yPosition, elementWidth, elementLength);
-                System.out.println(xPosition + " = " + yPosition + " = " + elementWidth + " = " + elementLength);
+//                System.out.println(xPosition + " = " + yPosition + " = " + elementWidth + " = " + elementLength);
                 rectangle.setStroke(Color.BLACK);
                 rectangle.setFill(null);
                 rectangle.setStrokeWidth(1);
 
                 group.getChildren().addAll(rectangle);
 
-                if (j < elementList.size() - 1) {
-                    Element nextElement = elementList.get(j + 1);
-                    String nextPoint = elementsStartPoints.get(nextElement);
-                    Double nextXPosition = pcbPosition + (Double.parseDouble(nextPoint.split(";")[0]) * 10);
-                    Double nextYPosition = 50 + (Double.parseDouble(nextPoint.split(";")[1]) * 10);
+//                if (j < elementList.size() - 1) {
+//                    Element nextElement = elementList.get(j + 1);
+//                    String nextPoint = elementsStartPoints.get(nextElement);
+//                    Double nextXPosition = pcbPosition + (Double.parseDouble(nextPoint.split(";")[0]) * 10);
+//                    Double nextYPosition = 50 + (Double.parseDouble(nextPoint.split(";")[1]) * 10);
+//
+//                    Double xStart = xPosition + elementWidth / 2;
+//                    Double yStart = yPosition + elementLength / 2;
+//                    Double xEnd = nextXPosition + nextElement.getWidth() * 10 / 2;
+//                    Double yEnd = nextYPosition + nextElement.getLength() * 10 / 2;
+//                    Line line = new Line(xStart, yStart, xEnd, yEnd);
+//                    line.setAccessibleText("test");
+//
+//                    System.out.println(xStart + "_" + yStart + "_" + xEnd + "_" + yEnd);
+//                    System.out.println();
+//                    group.getChildren().addAll(line);
+//                }
+            }
 
-                    Double xStart = xPosition + elementWidth / 2;
-                    Double yStart = yPosition + elementLength / 2;
-                    Double xEnd = nextXPosition + nextElement.getWidth() * 10 / 2;
-                    Double yEnd = nextYPosition + nextElement.getLength() * 10 / 2;
-                    Line line = new Line(xStart, yStart, xEnd, yEnd);
-                    line.setAccessibleText("test");
+            Double koeff = new Double(0.0);
+            for (int k = i; k < pcbs.size(); k++) {
+                List<Element> tmpElementList = elementsInPcbs.get(k);
+                koeff +=  (20 * k + pcbs.get(k).getWidth());
 
-                    System.out.println(xStart + "_" + yStart + "_" + xEnd + "_" + yEnd);
-                    System.out.println();
-                    group.getChildren().addAll(line);
-                }
+                IntStream.range(0, elementList.size()).forEach(m -> {
+                    IntStream.range(0, tmpElementList.size()).forEach(n -> {
+                        if (graph[(int) elementList.get(m).getId()][(int) tmpElementList.get(n).getId()] >= 1) {
+                            System.out.println(elementList.get(m).getId() + " + " + tmpElementList.get(n).getId() + " = "
+                                    + graph[(int) elementList.get(m).getId()][(int) tmpElementList.get(n).getId()]);
+
+                            Element startElement = elementList.get(m);
+                            Element endElement = tmpElementList.get(n);
+
+                            String startPoint = elementsStartPoints.get(startElement);
+                            String endPoint = elementsStartPoints.get(endElement);
+
+                            Double startX = Double.parseDouble(startPoint.split(";")[0]) * 10;
+                            Double startY = Double.parseDouble(startPoint.split(";")[1]) * 10;
+
+                            Double endX = Double.parseDouble(endPoint.split(";")[0]) * 10;
+                            Double endY = Double.parseDouble(endPoint.split(";")[1]) * 10;
+
+                            System.out.println(startX + ";" + startY + "=" + endX + ";" + endY);
+
+                        }
+                    });
+                });
+                System.out.println("koeff=" + koeff);
+
             }
 
             group.getChildren().addAll(r);

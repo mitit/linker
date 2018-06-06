@@ -45,8 +45,12 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     @Transactional
     public AcoAlgorithmResultDto getWorkResult() {
-        currentProject.setElementList(initElements());
-        currentProject.setPcbList(initPcbs());
+        currentProject = Project
+                .builder()
+                .name("test")
+                .elementList(initElements())
+                .pcbList(initPcbs())
+                .build();
         int[] acoAlgorithmIntArrayResult = runAcoAlgorithm();
 
         List<Element> acoAlgorithmElementListResult = Arrays
@@ -72,7 +76,7 @@ public class ProjectServiceImpl implements ProjectService {
         IntStream.range(0, currentProject.getPcbList().size())
                 .forEach(i -> {
                     Pcb pcb = currentProject.getPcbList().get(i);
-                    Long[][] pcbMatrix = new Long[(int) pcb.getLength()][(int) pcb.getWidth()];//TODO: исправить на * 100
+                    Long[][] pcbMatrix = new Long[(int) pcb.getWidth()][(int) pcb.getLength()];//TODO: исправить на * 100
                     pcbMatrices.add(pcbMatrix);
 
                     elementsInPcbs.add(new ArrayList<>());
@@ -81,8 +85,10 @@ public class ProjectServiceImpl implements ProjectService {
         int currentPcbMatrix = 0;
         int currentX = 0;
         int currentY = 0;
+        int lastY = 0;
         int nextX = 0;
         int nextY = 0;
+        int lastX = 0;
 
         for (int i = 0; i < sortedElements.size(); i++) {
 
@@ -101,8 +107,10 @@ public class ProjectServiceImpl implements ProjectService {
                     elementsStartPoints.put(element, currentX + ";" + currentY);
                     elementsInPcbs.get(currentPcbMatrix).add(element);
 
-                    currentX = (int) element.getWidth()  + currentX;
-                    if ((int) element.getLength()  + currentY > nextY) nextY = (int) element.getLength() + currentY;
+                    currentX = (int) element.getWidth() + currentX;
+//
+                    if (lastY < currentY + element.getLength())
+                        lastY = currentY + (int) element.getLength();
                 } else {
                     //TODO: переход на след пп
 
@@ -111,15 +119,16 @@ public class ProjectServiceImpl implements ProjectService {
                         i--;
                         currentX = 0;
                         currentY = 0;
+                        lastY = 0;
                     } else {
                         break;
                     }
                 }
-            } else if (element.getLength()  <  pcbMatrix[0].length - nextY) {
+            } else if (element.getLength() < pcbMatrix[0].length - lastY) {
                 currentX = 0;
-                currentY = nextY;
+                currentY = lastY;
 
-                if (element.getWidth()  < currentX + pcbMatrix.length) {
+                if (element.getWidth() < pcbMatrix.length - currentX) {
                     for (int m = currentX; m < currentX + element.getWidth(); m++)
                         for (int n = 0; n < currentY + element.getLength(); n++) {
                             pcbMatrix[m][n] = (long) i;
@@ -129,7 +138,19 @@ public class ProjectServiceImpl implements ProjectService {
                 elementsInPcbs.get(currentPcbMatrix).add(element);
 
                 currentX = (int) element.getWidth()  + currentX;
-                if ((int) element.getLength()  + currentY > nextY) nextY = (int) element.getLength()  + currentY;
+                if (lastY < currentY + element.getLength())
+                    lastY = currentY + (int) element.getLength();
+
+
+//                lastX = currentX;
+//                if (lastX < currentX)
+//                    lastX = currentX;
+
+//                if ((int) element.getLength()  + currentY > nextY)
+//                    nextY = (int) element.getLength()  + currentY;
+//                currentY = 0;
+
+
 
             } else {
 
@@ -138,6 +159,7 @@ public class ProjectServiceImpl implements ProjectService {
                     i--;
                     currentX = 0;
                     currentY = 0;
+                    lastY = 0;
                 } else {
                     break;
                 }
@@ -159,11 +181,11 @@ public class ProjectServiceImpl implements ProjectService {
         }
 
 
-
         return AcoAlgorithmResultDto
                 .builder()
                 .elementsInPcbs(elementsInPcbs)
                 .elementsStartPoints(elementsStartPoints)
+                .graph(generateGraph())
                 .build();
     }
 
@@ -189,24 +211,24 @@ public class ProjectServiceImpl implements ProjectService {
                 .builder()
                 .id(2)
                 .label("N3")
-                .length(4)
-                .width(4)
+                .length(5)
+                .width(5)
                 .build());
 
         elements.add(Element
                 .builder()
                 .id(3)
                 .label("N4")
-                .length(4)
-                .width(4)
+                .length(5)
+                .width(5)
                 .build());
 
         elements.add(Element
                 .builder()
                 .id(4)
                 .label("N5")
-                .length(4)
-                .width(4)
+                .length(5)
+                .width(5)
                 .build());
 
         return elements;
@@ -232,5 +254,40 @@ public class ProjectServiceImpl implements ProjectService {
                 .build());
 
         return pcbs;
+    }
+
+    public double[][] generateGraph() {
+        double[][] graph = new double[5][5];
+        graph[0][0] = 0.01;
+        graph[0][1] = 3;
+        graph[0][2] = 1;
+        graph[0][3] = 0.01;
+        graph[0][4] = 0.01;
+
+        graph[1][0] = 3;
+        graph[1][1] = 0.01;
+        graph[1][2] = 0.01;
+        graph[1][3] = 0.01;
+        graph[1][4] = 0.01;
+
+        graph[2][0] = 1;
+        graph[2][1] = 0.01;
+        graph[2][2] = 0.01;
+        graph[2][3] = 1;
+        graph[2][4] = 2;
+
+        graph[3][0] = 0.01;
+        graph[3][1] = 0.01;
+        graph[3][2] = 1;
+        graph[3][3] = 0.01;
+        graph[3][4] = 1;
+
+        graph[4][0] = 0.01;
+        graph[4][1] = 0.01;
+        graph[4][2] = 2;
+        graph[4][3] = 1;
+        graph[4][4] = 0.01;
+
+        return graph;
     }
 }
