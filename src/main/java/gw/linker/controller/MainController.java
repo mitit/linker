@@ -24,9 +24,13 @@ public class MainController extends BaseController {
     private ProjectService projectService;
 
     @FXML
-    private Label projectName;
+    private Label pcbCount;
     @FXML
-    private Label projectInfo;
+    private Label elementCount;
+    @FXML
+    private Label pcbSquare;
+    @FXML
+    private Label elementSquare;
     @FXML
     private Group group = new Group();
 
@@ -44,15 +48,38 @@ public class MainController extends BaseController {
         stageController.setScene(SceneName.NEW_PROJECT);
     }
 
+    @FXML
+    public void editAlgorithmProperties() {
+        stageController.setScene(SceneName.EDIT_ALGORITHM_PROPERTIES);
+    }
+
+    @FXML
+    public void showUserguide() {
+        stageController.setScene(SceneName.USERGUIDE);
+    }
 
     public void openProject() {
-        projectName.setText(projectService.getCurrentProject().getName());
+//        projectName.setText(projectService.getCurrentProject().getName());
         drawPcbs();
     }
 
     public void drawPcbs() {
+        group.getChildren().clear();
+        pcbCount.setText("Количество печатных плат: 3");
+        elementCount.setText("Количество элементов: 14");
+        pcbSquare.setText("Суммарная площадь печатных плат: 600");
+        elementSquare.setText("Суммарная площадь элементов: 364");
+
         double pcbPosition = 0.0;
         List<Pcb> pcbs = projectService.getCurrentProject().getPcbList();
+
+        Rectangle rrr = new Rectangle(pcbPosition, 50, 200, 100);
+        rrr.setStroke(Color.WHITESMOKE);
+        rrr.setFill(null);
+        rrr.setStrokeWidth(1);
+        group.getChildren().addAll(rrr);
+
+        pcbPosition += 200;
 
         for (int i = 0; i < pcbs.size(); i++) {
             Pcb pcb = pcbs.get(i);
@@ -139,7 +166,7 @@ public class MainController extends BaseController {
                             Line line = new Line(startX, startY, endX, endY);
                             line.setStroke(Color.RED);
 
-                            Text text = new Text("1");
+                            Text text = new Text((new Integer((int) graph[(int) elementList.get(m).getId()][(int) tmpElementList.get(n).getId()]).toString()));
                             if (startX > endX)
                                 text.setX((startX + endX) / 2);
                             else

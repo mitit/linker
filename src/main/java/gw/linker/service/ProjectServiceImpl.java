@@ -1,8 +1,6 @@
 package gw.linker.service;
 
-import gw.linker.entity.Element;
-import gw.linker.entity.Pcb;
-import gw.linker.entity.Project;
+import gw.linker.entity.*;
 import gw.linker.entity.dto.AcoAlgorithmResultDto;
 import gw.linker.repository.ProjectRepository;
 import lombok.Getter;
@@ -48,8 +46,8 @@ public class ProjectServiceImpl implements ProjectService {
         currentProject = Project
                 .builder()
                 .name("test")
-                .elementList(initElements())
-                .pcbList(initPcbs())
+                .elementList(TESTinitElements())
+                .pcbList(TESTinitPcbs())
                 .build();
         int[] acoAlgorithmIntArrayResult = runAcoAlgorithm();
 
@@ -64,7 +62,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     private int[] runAcoAlgorithm() {
-        int[] test = {1, 0, 2, 4, 3};
+        int[] test = {1, 0, 2, 4, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13};
         return test;
     }
 
@@ -106,7 +104,7 @@ public class ProjectServiceImpl implements ProjectService {
                             pcbMatrix[m][n] = (long) i;
                         }
 
-                    int tmpX = currentX * 10 + pcbPosition;
+                    int tmpX = 200 + currentX * 10 + pcbPosition;
                     elementsStartPoints.put(element, tmpX + ";" + currentY);
                     elementsInPcbs.get(currentPcbMatrix).add(element);
 
@@ -136,7 +134,7 @@ public class ProjectServiceImpl implements ProjectService {
                             pcbMatrix[m][n] = (long) i;
                         }
                 }
-                int tmpX = currentX * 10 + pcbPosition;
+                int tmpX = 200 + currentX * 10 + pcbPosition;
                 elementsStartPoints.put(element, tmpX + ";" + currentY);
                 elementsInPcbs.get(currentPcbMatrix).add(element);
 
@@ -164,16 +162,16 @@ public class ProjectServiceImpl implements ProjectService {
                 .builder()
                 .elementsInPcbs(elementsInPcbs)
                 .elementsStartPoints(elementsStartPoints)
-                .graph(generateGraph())
+                .graph(TESTgenerateGraph())
                 .build();
     }
 
-    public List<Element> initElements() {
+    public List<Element> TESTinitElements() {
         List<Element> elements = new ArrayList<>();
         elements.add(Element
                 .builder()
                 .id(0)
-                .label("N1")
+                .label("R1")
                 .length(8)
                 .width(6)
                 .build());
@@ -181,7 +179,7 @@ public class ProjectServiceImpl implements ProjectService {
         elements.add(Element
                 .builder()
                 .id(1)
-                .label("N2")
+                .label("R2")
                 .length(8)
                 .width(6)
                 .build());
@@ -189,7 +187,7 @@ public class ProjectServiceImpl implements ProjectService {
         elements.add(Element
                 .builder()
                 .id(2)
-                .label("N3")
+                .label("R3")
                 .length(5)
                 .width(5)
                 .build());
@@ -197,7 +195,7 @@ public class ProjectServiceImpl implements ProjectService {
         elements.add(Element
                 .builder()
                 .id(3)
-                .label("N4")
+                .label("R4")
                 .length(5)
                 .width(5)
                 .build());
@@ -205,68 +203,204 @@ public class ProjectServiceImpl implements ProjectService {
         elements.add(Element
                 .builder()
                 .id(4)
-                .label("N5")
+                .label("R5")
                 .length(5)
                 .width(5)
+                .build());
+
+        elements.add(Element
+                .builder()
+                .id(5)
+                .label("С1")
+                .length(5)
+                .width(4)
+                .build());
+
+        elements.add(Element
+                .builder()
+                .id(6)
+                .label("С2")
+                .length(4)
+                .width(5)
+                .build());
+
+        elements.add(Element
+                .builder()
+                .id(7)
+                .label("С3")
+                .length(3)
+                .width(3)
+                .build());
+
+        elements.add(Element
+                .builder()
+                .id(8)
+                .label("R6")
+                .length(6)
+                .width(5)
+                .build());
+
+        elements.add(Element
+                .builder()
+                .id(9)
+                .label("L5")
+                .length(5)
+                .width(3)
+                .build());
+
+        elements.add(Element
+                .builder()
+                .id(10)
+                .label("L1")
+                .length(5)
+                .width(4)
+                .build());
+
+        elements.add(Element
+                .builder()
+                .id(11)
+                .label("L2")
+                .length(4)
+                .width(4)
+                .build());
+
+        elements.add(Element
+                .builder()
+                .id(12)
+                .label("L3")
+                .length(3)
+                .width(3)
+                .build());
+
+        elements.add(Element
+                .builder()
+                .id(13)
+                .label("L4")
+                .length(6)
+                .width(4)
                 .build());
 
         return elements;
     }
 
-    public List<Pcb> initPcbs() {
+    public List<Pcb> TESTinitPcbs() {
         List<Pcb> pcbs = new ArrayList<>();
 
         pcbs.add(Pcb
                 .builder()
                 .id(0)
-                .label("FIRST")
+                .label("95-b0-e0-ER")
                 .length(20)
                 .width(10)
                 .build());
+
+
+        pcbs.add(Pcb
+                .builder()
+                .id(2)
+                .label("78-b2-e0-ER")
+                .length(20)
+                .width(10)
+                .build());
+
 
         pcbs.add(Pcb
                 .builder()
                 .id(1)
-                .label("SECOND")
+                .label("95-b1-e1-ER")
                 .length(20)
                 .width(10)
                 .build());
 
+
         return pcbs;
     }
 
-    public double[][] generateGraph() {
-        double[][] graph = new double[5][5];
-        graph[0][0] = 0.01;
-        graph[0][1] = 3;
+
+    public double[][] TESTgenerateGraph() {
+        double[][] graph = new double[14][14];
+        IntStream.range(0, 14).forEach(i -> {
+            IntStream.range(0, 14).forEach(j -> {
+                graph[i][j] = 0.01;
+            });
+        });
+
+        graph[0][1] = 2;
+        graph[1][0] = 2;
         graph[0][2] = 1;
-        graph[0][3] = 0.01;
-        graph[0][4] = 1.0;
-
-        graph[1][0] = 3;
-        graph[1][1] = 0.01;
-        graph[1][2] = 0.01;
-        graph[1][3] = 0.01;
-        graph[1][4] = 0.01;
-
         graph[2][0] = 1;
-        graph[2][1] = 0.01;
-        graph[2][2] = 0.01;
-        graph[2][3] = 1;
         graph[2][4] = 2;
-
-        graph[3][0] = 0.01;
-        graph[3][1] = 0.01;
-        graph[3][2] = 1;
-        graph[3][3] = 0.01;
-        graph[3][4] = 1;
-
-        graph[4][0] = 0.01;
-        graph[4][1] = 1.0;
         graph[4][2] = 2;
-        graph[4][3] = 1;
-        graph[4][4] = 0.01;
+        graph[2][3] = 3;
+        graph[3][2] = 3;
+        graph[5][6] = 2;
+        graph[6][5] = 2;
+        graph[5][7] = 2;
+        graph[7][5] = 2;
+        graph[6][7] = 2;
+        graph[7][6] = 2;
+        graph[3][5] = 1;
+        graph[5][3] = 1;
+        graph[4][5] = 1;
+        graph[5][4] = 1;
+        graph[4][8] = 1;
+        graph[8][4] = 1;
+        graph[8][9] = 1;
+        graph[9][8] = 1;
+        graph[8][10] = 1;
+        graph[10][8] = 1;
+        graph[9][11] = 2;
+        graph[11][9] = 2;
+        graph[9][10] = 1;
+        graph[10][9] = 1;
+        graph[10][11] = 1;
+        graph[11][10] = 1;
+        graph[11][13] = 3;
+        graph[13][11] = 3;
+        graph[12][13] = 4;
+        graph[13][12] = 4;
+        graph[10][12] = 2;
+        graph[12][10] = 2;
+        graph[10][5] = 1;
+        graph[5][10] = 1;
+
 
         return graph;
+    }
+
+    private double[][] generateMatrix(LinkSchema linkSchema) {
+        List<Link> links = linkSchema.getLinks();
+        List<Element> elementsInLinkSchema = new ArrayList<>();
+
+        links.forEach(l -> {
+            if (!elementsInLinkSchema.contains(l.getElement1()))
+                elementsInLinkSchema.add(l.getElement1());
+            if (!elementsInLinkSchema.contains(l.getElement2()))
+                elementsInLinkSchema.add(l.getElement2());
+        });
+
+        int matrixSize = elementsInLinkSchema.size();
+        double[][]  matrix = new double[matrixSize][matrixSize];
+
+        IntStream.range(0, matrixSize).forEach(i -> {
+            IntStream.range(0, matrixSize).forEach(j -> {
+                matrix[i][j] = 0.01;
+            });
+        });
+
+        links.forEach(l -> {
+            int indexOfElement1InMatrix = elementsInLinkSchema.indexOf(l.getElement1());
+            int indexOfElement2InMatrix = elementsInLinkSchema.indexOf(l.getElement2());
+
+            if (matrix[indexOfElement1InMatrix][indexOfElement2InMatrix] == 0.01) {
+                matrix[indexOfElement1InMatrix][indexOfElement2InMatrix] = 1;
+                matrix[indexOfElement2InMatrix][indexOfElement1InMatrix] = 1;
+            } else {
+                matrix[indexOfElement1InMatrix][indexOfElement2InMatrix]++;
+                matrix[indexOfElement2InMatrix][indexOfElement1InMatrix]++;
+            }
+        });
+
+        return matrix;
     }
 }

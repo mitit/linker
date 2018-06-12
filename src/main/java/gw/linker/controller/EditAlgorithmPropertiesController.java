@@ -13,6 +13,8 @@ public class EditAlgorithmPropertiesController extends BaseController  {
     private TextField emcParameter;
     @FXML
     private TextField funcParameter;
+    @FXML
+    private TextField pcbSquareKoeffParameter;
 
     @FXML
     public void init() {

@@ -26,13 +26,13 @@
                         <Menu mnemonicParsing="false" text="Компоновка">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#startWork" text="Начать компоновку" />
-                                <MenuItem mnemonicParsing="false" text="Задать пар-ры алгоритма" />
+                                <MenuItem mnemonicParsing="false" onAction="#editAlgorithmProperties" text="Задать пар-ры алгоритма" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Справка">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="Описание программы" />
-                                <MenuItem mnemonicParsing="false" text="Рук-во пользователя" />
+                                <MenuItem mnemonicParsing="false" onAction="#showUserguide" text="Рук-во пользователя" />
                             </items>
                         </Menu>
                     </menus>
@@ -45,26 +45,45 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <Label text="Проект:">
+                  <Label text="Информация о проекте">
                      <HBox.margin>
-                        <Insets left="20.0" top="20.0" />
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="projectName" text="Не выбран">
+                  <VBox prefHeight="200.0">
+                     <children>
+                        <Label fx:id="pcbCount" text="Проект не выбран">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="elementCount">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
                      <HBox.margin>
-                        <Insets left="20.0" top="20.0" />
+                        <Insets left="50.0" />
                      </HBox.margin>
-                  </Label>
-                  <Label text="Информация о проекте:">
+                  </VBox>
+                  <VBox prefHeight="200.0">
+                     <children>
+                        <Label fx:id="pcbSquare">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="elementSquare">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
                      <HBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        <Insets left="50.0" />
                      </HBox.margin>
-                  </Label>
-                  <Label fx:id="projectInfo" text="Отсутствует">
-                     <HBox.margin>
-                        <Insets top="20.0" />
-                     </HBox.margin>
-                  </Label>
+                  </VBox>
                </children>
             </HBox>
             <Group fx:id="group" />

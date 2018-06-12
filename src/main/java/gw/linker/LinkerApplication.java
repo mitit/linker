@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Lazy;
 @SpringBootApplication
 public class LinkerApplication extends AbstractSupportMain implements StageController {
 
-    @Value("${ui.title:JavaFX приложение}")//
+    @Value("${ui.title:Компоновка}")//
     private String windowTitle;
 
     @Qualifier("mainView")

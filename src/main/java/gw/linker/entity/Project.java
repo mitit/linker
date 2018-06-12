@@ -1,8 +1,10 @@
 package gw.linker.entity;
 
 import lombok.*;
+import org.springframework.cglib.core.Local;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -17,6 +19,10 @@ public class Project {
     @Id
     @Column
     private String name;
+    @Column
+    private LocalDateTime startDate;
+    @Column
+    private LocalDateTime lastEditDate;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.ALL})

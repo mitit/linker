@@ -10,20 +10,29 @@
     <children>
       <VBox prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
+            <HBox prefWidth="200.0">
+               <children>
+                  <Label text="Ограничение заполнения печатной платы (%):">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="25.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="pcbSquareKoeffParameter">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="180.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
             <Label text="Соотношение влияния параметров при выборе следующей веришины в цепочке:">
                <VBox.margin>
-                  <Insets bottom="20.0" left="60.0" right="20.0" top="20.0" />
+                  <Insets bottom="20.0" left="60.0" right="20.0" top="10.0" />
                </VBox.margin>
             </Label>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <VBox>
                      <children>
-                        <Label text="Количество связей между элементами:">
-                           <VBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </VBox.margin>
-                        </Label>
                         <Label text="ЭМС:">
                            <VBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="25.0" />
@@ -43,11 +52,6 @@
                   </VBox>
                   <VBox>
                      <children>
-                        <TextField fx:id="weightParameter">
-                           <VBox.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </VBox.margin>
-                        </TextField>
                         <TextField fx:id="emcParameter">
                            <VBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

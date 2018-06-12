@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class AddProjectController extends BaseController {
     private List<Pcb> pcbs;
     private List<LinkSchema> linkSchemas;
 
-    @FXML
+    @PostConstruct
     public void init() {
         pcbs = pcbRepository.findAll();
         linkSchemas = linkSchemaRepository.findAll();
@@ -47,13 +48,13 @@ public class AddProjectController extends BaseController {
         TableColumn<Pcb, String> pcbLabelColumn = new TableColumn<>("Маркировка");
         pcbLabelColumn.setCellValueFactory(new PropertyValueFactory<>("label"));
 
-        TableColumn<Pcb, String> pcbWidthColumn = new TableColumn<>("Ширина");
-        pcbLabelColumn.setCellValueFactory(new PropertyValueFactory<>("width"));
+//        TableColumn<Pcb, String> pcbWidthColumn = new TableColumn<>("Ширина");
+//        pcbLabelColumn.setCellValueFactory(new PropertyValueFactory<>("width"));
+//
+//        TableColumn<Pcb, String> pcbLengthColumn = new TableColumn<>("Длина");
+//        pcbLabelColumn.setCellValueFactory(new PropertyValueFactory<>("length"));
 
-        TableColumn<Pcb, String> pcbLengthColumn = new TableColumn<>("Длина");
-        pcbLabelColumn.setCellValueFactory(new PropertyValueFactory<>("length"));
-
-        pcbTableView.getColumns().setAll(pcbLabelColumn, pcbWidthColumn, pcbLengthColumn);
+        pcbTableView.getColumns().setAll(pcbLabelColumn);
         pcbTableView.setItems(FXCollections.observableArrayList(pcbs));
         pcbTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -94,22 +95,33 @@ public class AddProjectController extends BaseController {
     public List<Pcb> initPcbs() {
         List<Pcb> pcbs = new ArrayList<>();
 
-        pcbs.add(Pcb
-                .builder()
-                .id(0)
-                .label("FIRST")
-                .length(20)
-                .width(10)
-                .build());
 
         pcbs.add(Pcb
                 .builder()
                 .id(1)
-                .label("SECOND")
+                .label("95-b1-e1-ER")
                 .length(20)
                 .width(10)
                 .build());
 
+        pcbs.add(Pcb
+                .builder()
+                .id(2)
+                .label("78-b2-e0-ER")
+                .length(20)
+                .width(10)
+                .build());
+
+        pcbs.add(Pcb
+                .builder()
+                .id(0)
+                .label("95-b0-e0-ER")
+                .length(20)
+                .width(10)
+                .build());
+
+
         return pcbs;
     }
+
 }

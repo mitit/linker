@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class AllProjectsController extends BaseController {
         pcbs.add(Pcb
                 .builder()
                 .id(0)
-                .label("FIRST")
+                .label("95-b0-e0-ER")
                 .length(20)
                 .width(10)
                 .build());
@@ -77,7 +78,15 @@ public class AllProjectsController extends BaseController {
         pcbs.add(Pcb
                 .builder()
                 .id(1)
-                .label("SECOND")
+                .label("95-b1-e1-ER")
+                .length(20)
+                .width(10)
+                .build());
+
+        pcbs.add(Pcb
+                .builder()
+                .id(2)
+                .label("78-b2-e0-ER")
                 .length(20)
                 .width(10)
                 .build());
