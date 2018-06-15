@@ -58,39 +58,8 @@ public class AllProjectsController extends BaseController {
     public void selectProject() {
         String projectName = projectTableView.getSelectionModel().getSelectedItem().getName();
         Project project = projectService.find(projectName).orElseThrow(ProjectNotFoundException::new);
-        project.setPcbList(initPcbs());
         projectService.setCurrentProject(project);
         mainController.openProject();
         close();
-    }
-
-    public List<Pcb> initPcbs() {
-        List<Pcb> pcbs = new ArrayList<>();
-
-        pcbs.add(Pcb
-                .builder()
-                .id(0)
-                .label("95-b0-e0-ER")
-                .length(20)
-                .width(10)
-                .build());
-
-        pcbs.add(Pcb
-                .builder()
-                .id(1)
-                .label("95-b1-e1-ER")
-                .length(20)
-                .width(10)
-                .build());
-
-        pcbs.add(Pcb
-                .builder()
-                .id(2)
-                .label("78-b2-e0-ER")
-                .length(20)
-                .width(10)
-                .build());
-
-        return pcbs;
     }
 }

@@ -15,9 +15,6 @@ import java.util.List;
 public class Pcb {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    @Column
     private String label;
     @Column
     private double width;

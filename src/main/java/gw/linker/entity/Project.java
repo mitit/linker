@@ -28,7 +28,7 @@ public class Project {
             cascade = {CascadeType.ALL})
     @JoinTable(name = "pcb_in_project",
             joinColumns = {@JoinColumn(name = "project_name")},
-            inverseJoinColumns = {@JoinColumn(name = "pcb_id")})
+            inverseJoinColumns = {@JoinColumn(name = "pcb_label")})
     private List<Pcb> pcbList;
 
     @ManyToMany(fetch = FetchType.LAZY,
@@ -38,6 +38,6 @@ public class Project {
             inverseJoinColumns = {@JoinColumn(name = "element_id")})
     private List<Element> elementList;
 
-    @OneToOne
+    @ManyToOne
     private LinkSchema linkSchema;
 }

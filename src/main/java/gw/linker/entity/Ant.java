@@ -1,10 +1,10 @@
-package gw.linker.acotest;
+package gw.linker.entity;
 
 public class Ant {
 
-    protected int trailSize;
-    protected int trail[];
-    protected boolean visited[];
+    public int trailSize;
+    public int trail[];
+    public boolean visited[];
 
     public Ant(int tourSize) {
         this.trailSize = tourSize;
@@ -12,16 +12,16 @@ public class Ant {
         this.visited = new boolean[tourSize];
     }
 
-    protected void visitCity(int currentIndex, int city) {
+    public void visitCity(int currentIndex, int city) {
         trail[currentIndex + 1] = city;
         visited[city] = true;
     }
 
-    protected boolean visited(int i) {
+    public boolean visited(int i) {
         return visited[i];
     }
 
-    protected double trailLength(double graph[][]) {
+    public double trailLength(double graph[][]) {
 //        double length = graph[trail[trailSize - 1]][trail[0]];
         double length = 0.0;
         for (int i = 0; i < trailSize - 1; i++) {
@@ -30,7 +30,7 @@ public class Ant {
         return length;
     }
 
-    protected void clear() {
+    public void clear() {
         for (int i = 0; i < trailSize; i++)
             visited[i] = false;
     }

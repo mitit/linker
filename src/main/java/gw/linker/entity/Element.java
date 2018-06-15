@@ -31,5 +31,7 @@ public class Element {
             cascade = {CascadeType.ALL},
             mappedBy = "elementList")
     private List<Project> projectList;
+    @Column
+    private String functionalClass;
 
 }

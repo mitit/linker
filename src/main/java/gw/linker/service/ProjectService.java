@@ -19,4 +19,24 @@ public interface ProjectService {
     Project getCurrentProject();
 
     AcoAlgorithmResultDto getWorkResult();
+
+    double getAlpha();
+
+    double getBeta();
+
+    double getCcc();
+
+    double getDdd();
+
+    double getPcbSquareKoeffParameter();
+
+    void setAlpha(double parameter);
+
+    void setBeta(double parameter);
+
+    void setCcc(double parameter);
+
+    void setDdd(double parameter);
+
+    void setPcbSquareKoeffParameter(double parameter);
 }

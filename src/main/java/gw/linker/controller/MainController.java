@@ -1,6 +1,5 @@
 package gw.linker.controller;
 
-import gw.linker.acotest.AntColonyOptimizationService;
 import gw.linker.entity.Element;
 import gw.linker.entity.Pcb;
 import gw.linker.entity.dto.AcoAlgorithmResultDto;
@@ -59,16 +58,15 @@ public class MainController extends BaseController {
     }
 
     public void openProject() {
-//        projectName.setText(projectService.getCurrentProject().getName());
         drawPcbs();
     }
 
     public void drawPcbs() {
         group.getChildren().clear();
-        pcbCount.setText("Количество печатных плат: 3");
-        elementCount.setText("Количество элементов: 14");
-        pcbSquare.setText("Суммарная площадь печатных плат: 600");
-        elementSquare.setText("Суммарная площадь элементов: 364");
+        pcbCount.setText("Количество печатных плат: " + projectService.getCurrentProject().getPcbList().size());
+        elementCount.setText("Количество элементов: " +  + projectService.getCurrentProject().getElementList().size());
+        pcbSquare.setText("Суммарная площадь печатных плат: " + calculatePcbsSquare(projectService.getCurrentProject().getPcbList()));
+        elementSquare.setText("Суммарная площадь элементов: " + calculateElementsSquare(projectService.getCurrentProject().getElementList()));
 
         double pcbPosition = 0.0;
         List<Pcb> pcbs = projectService.getCurrentProject().getPcbList();
@@ -102,7 +100,6 @@ public class MainController extends BaseController {
     @FXML
     public void startWork() {
         AcoAlgorithmResultDto acoAlgorithmResultDto = projectService.getWorkResult();
-//        double pcbPosition = 0.0;
 
         List<Pcb> pcbs = projectService.getCurrentProject().getPcbList();
         List<Element> elements = projectService.getCurrentProject().getElementList();
@@ -112,14 +109,6 @@ public class MainController extends BaseController {
         double[][] graph = acoAlgorithmResultDto.getGraph();
 
         for (int i = 0; i < pcbs.size(); i++) {
-//            Pcb pcb = pcbs.get(i);
-
-//            double pcbWidth = pcb.getWidth() * 10;
-//            double pcbLength = pcb.getLength() * 10;
-//            Rectangle r = new Rectangle(pcbPosition, 50, pcbWidth, pcbLength);
-//            r.setStroke(Color.BLACK);
-//            r.setFill(null);
-//            r.setStrokeWidth(1);
 
             List<Element> elementList = elementsInPcbs.get(i);
             for (int j = 0; j < elementList.size(); j++) {
@@ -186,9 +175,25 @@ public class MainController extends BaseController {
 
             }
 
-//            group.getChildren().addAll(r);
-//            pcbPosition += 20 + pcbWidth;
         }
 
+    }
+
+    private double calculateElementsSquare(List<Element> elements) {
+        double square = 0;
+        for (Element element : elements) {
+            square += element.getLength() * element.getWidth();
+        }
+
+        return square;
+    }
+
+    private double calculatePcbsSquare(List<Pcb> pcbs) {
+        double square = 0;
+        for (Pcb pcb : pcbs) {
+            square += pcb.getLength() * pcb.getWidth();
+        }
+
+        return square;
     }
 }

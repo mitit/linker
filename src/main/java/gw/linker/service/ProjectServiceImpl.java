@@ -2,6 +2,7 @@ package gw.linker.service;
 
 import gw.linker.entity.*;
 import gw.linker.entity.dto.AcoAlgorithmResultDto;
+import gw.linker.repository.EmcRepository;
 import gw.linker.repository.ProjectRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +20,27 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
     @Autowired
-    private AcoAlgorithmService acoAlgorithmService;
+    private EmcRepository emcRepository;
+
+    private double[][] ajacencyMatrix;
+    private int[][] functionalMatrix;
+    private int[][] emcMatrix;
+
+    @Setter
+    @Getter
+    private double alpha = 1;
+    @Setter
+    @Getter
+    private double beta = 1;
+    @Setter
+    @Getter
+    private double ccc = 1;
+    @Setter
+    @Getter
+    private double ddd = 1;
+    @Setter
+    @Getter
+    private double pcbSquareKoeffParameter = 0.8;
 
     @Getter
     @Setter
@@ -43,12 +64,8 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     @Transactional
     public AcoAlgorithmResultDto getWorkResult() {
-        currentProject = Project
-                .builder()
-                .name("test")
-                .elementList(TESTinitElements())
-                .pcbList(TESTinitPcbs())
-                .build();
+        initData(currentProject.getLinkSchema());
+
         int[] acoAlgorithmIntArrayResult = runAcoAlgorithm();
 
         List<Element> acoAlgorithmElementListResult = Arrays
@@ -62,7 +79,17 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     private int[] runAcoAlgorithm() {
-        int[] test = {1, 0, 2, 4, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+        AcoAlgorithmServiceImpl algorithm = new AcoAlgorithmServiceImpl(currentProject);
+        algorithm.setEmcMatrix(emcMatrix);
+        algorithm.setGraph(ajacencyMatrix);
+        algorithm.setFunctionalAttachmentMatrix(functionalMatrix);
+        algorithm.setAlpha(getAlpha());
+        algorithm.setBeta(getBeta());
+        algorithm.setCcc(getCcc());
+        algorithm.setDdd(getDdd());
+
+        int[] test = algorithm.startAntOptimization();
+
         return test;
     }
 
@@ -162,7 +189,7 @@ public class ProjectServiceImpl implements ProjectService {
                 .builder()
                 .elementsInPcbs(elementsInPcbs)
                 .elementsStartPoints(elementsStartPoints)
-                .graph(TESTgenerateGraph())
+                .graph(ajacencyMatrix)
                 .build();
     }
 
@@ -288,7 +315,6 @@ public class ProjectServiceImpl implements ProjectService {
 
         pcbs.add(Pcb
                 .builder()
-                .id(0)
                 .label("95-b0-e0-ER")
                 .length(20)
                 .width(10)
@@ -297,7 +323,6 @@ public class ProjectServiceImpl implements ProjectService {
 
         pcbs.add(Pcb
                 .builder()
-                .id(2)
                 .label("78-b2-e0-ER")
                 .length(20)
                 .width(10)
@@ -306,7 +331,6 @@ public class ProjectServiceImpl implements ProjectService {
 
         pcbs.add(Pcb
                 .builder()
-                .id(1)
                 .label("95-b1-e1-ER")
                 .length(20)
                 .width(10)
@@ -315,7 +339,6 @@ public class ProjectServiceImpl implements ProjectService {
 
         return pcbs;
     }
-
 
     public double[][] TESTgenerateGraph() {
         double[][] graph = new double[14][14];
@@ -368,7 +391,7 @@ public class ProjectServiceImpl implements ProjectService {
         return graph;
     }
 
-    private double[][] generateMatrix(LinkSchema linkSchema) {
+    private void initData(LinkSchema linkSchema) {
         List<Link> links = linkSchema.getLinks();
         List<Element> elementsInLinkSchema = new ArrayList<>();
 
@@ -380,11 +403,19 @@ public class ProjectServiceImpl implements ProjectService {
         });
 
         int matrixSize = elementsInLinkSchema.size();
-        double[][]  matrix = new double[matrixSize][matrixSize];
+        double[][]  adjacencyM = new double[matrixSize][matrixSize];
+        int[][]  emcM = new int[matrixSize][matrixSize];
+        int[][]  funcM = new int[matrixSize][matrixSize];
+
 
         IntStream.range(0, matrixSize).forEach(i -> {
             IntStream.range(0, matrixSize).forEach(j -> {
-                matrix[i][j] = 0.01;
+                adjacencyM[i][j] = 0.01;
+                adjacencyM[j][i] = 0.01;
+                emcM[i][j] = 0;
+                emcM[j][i] = 0;
+                funcM[i][j] = 0;
+                funcM[j][i] = 0;
             });
         });
 
@@ -392,15 +423,33 @@ public class ProjectServiceImpl implements ProjectService {
             int indexOfElement1InMatrix = elementsInLinkSchema.indexOf(l.getElement1());
             int indexOfElement2InMatrix = elementsInLinkSchema.indexOf(l.getElement2());
 
-            if (matrix[indexOfElement1InMatrix][indexOfElement2InMatrix] == 0.01) {
-                matrix[indexOfElement1InMatrix][indexOfElement2InMatrix] = 1;
-                matrix[indexOfElement2InMatrix][indexOfElement1InMatrix] = 1;
+            if (adjacencyM[indexOfElement1InMatrix][indexOfElement2InMatrix] == 0.01) {
+                adjacencyM[indexOfElement1InMatrix][indexOfElement2InMatrix] = 1;
+                adjacencyM[indexOfElement2InMatrix][indexOfElement1InMatrix] = 1;
             } else {
-                matrix[indexOfElement1InMatrix][indexOfElement2InMatrix]++;
-                matrix[indexOfElement2InMatrix][indexOfElement1InMatrix]++;
+                adjacencyM[indexOfElement1InMatrix][indexOfElement2InMatrix]++;
+                adjacencyM[indexOfElement2InMatrix][indexOfElement1InMatrix]++;
+            }
+
+            Emc emc = emcRepository.findByElement1AndElement2(l.getElement1(), l.getElement2());
+            if (emc != null) {
+                emcM[indexOfElement1InMatrix][indexOfElement2InMatrix] = emc.getValue();
+                emcM[indexOfElement2InMatrix][indexOfElement1InMatrix] = emc.getValue();
+            }
+
+            if (l.getElement1().getFunctionalClass().equals(l.getElement2().getFunctionalClass())) {
+                funcM[indexOfElement1InMatrix][indexOfElement2InMatrix] = 1;
+                funcM[indexOfElement2InMatrix][indexOfElement1InMatrix] = 1;
             }
         });
 
-        return matrix;
+        ajacencyMatrix = adjacencyM;
+        emcMatrix = emcM;
+        functionalMatrix = funcM;
+        currentProject.setElementList(elementsInLinkSchema);
+    }
+
+    private void calculateF() {
+
     }
 }

@@ -48,12 +48,6 @@ public class AddProjectController extends BaseController {
         TableColumn<Pcb, String> pcbLabelColumn = new TableColumn<>("Маркировка");
         pcbLabelColumn.setCellValueFactory(new PropertyValueFactory<>("label"));
 
-//        TableColumn<Pcb, String> pcbWidthColumn = new TableColumn<>("Ширина");
-//        pcbLabelColumn.setCellValueFactory(new PropertyValueFactory<>("width"));
-//
-//        TableColumn<Pcb, String> pcbLengthColumn = new TableColumn<>("Длина");
-//        pcbLabelColumn.setCellValueFactory(new PropertyValueFactory<>("length"));
-
         pcbTableView.getColumns().setAll(pcbLabelColumn);
         pcbTableView.setItems(FXCollections.observableArrayList(pcbs));
         pcbTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -70,13 +64,10 @@ public class AddProjectController extends BaseController {
         List<Pcb> pcbList = pcbTableView.getSelectionModel().getSelectedItems();
         LinkSchema linkSchema = linkSchemaTableView.getSelectionModel().getSelectedItem();
 
-
-        List<Pcb> pcbTestList = initPcbs();
-
         Project project = Project
                 .builder()
                 .name(projectName.getText())
-                .pcbList(pcbTestList)
+                .pcbList(pcbList)
                 .linkSchema(linkSchema)
                 .build();
 
@@ -92,36 +83,5 @@ public class AddProjectController extends BaseController {
         stageController.setScene(SceneName.MAIN);
     }
 
-    public List<Pcb> initPcbs() {
-        List<Pcb> pcbs = new ArrayList<>();
-
-
-        pcbs.add(Pcb
-                .builder()
-                .id(1)
-                .label("95-b1-e1-ER")
-                .length(20)
-                .width(10)
-                .build());
-
-        pcbs.add(Pcb
-                .builder()
-                .id(2)
-                .label("78-b2-e0-ER")
-                .length(20)
-                .width(10)
-                .build());
-
-        pcbs.add(Pcb
-                .builder()
-                .id(0)
-                .label("95-b0-e0-ER")
-                .length(20)
-                .width(10)
-                .build());
-
-
-        return pcbs;
-    }
 
 }
